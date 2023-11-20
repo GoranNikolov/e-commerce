@@ -1,8 +1,8 @@
 <div>
   <mat-toolbar class="header" color="primary">
     <!-- Logo -->
-    <div>
-      <img src="favicon.ico" alt="Logo" style="height: 40px; width: auto;" height="30" width="28">
+    <div style="display: flex;">
+      <img src="/assets/ai-generated-logo.ico" alt="Logo" style="height: 40px; width: auto;border-radius: 25px;" height="30" width="28">
     </div>
 
     <!-- Navigation Links -->
@@ -18,18 +18,17 @@
     <!-- Spacer -->
     <span class="spacer"></span>
 
+
+    <!-- Shopping Cart -->
+    <mat-icon matBadge="{{ cartItemsCount$ | async }}" matBadgeColor="warn" (click)="toggleOverlay()">
+      shopping_cart
+    </mat-icon>
+
     <div class="nav-list">
       <span class="nav-item" routerLink="/sign-up">Sign Up</span>
     </div>
-    <!-- Shopping Cart -->
-    <mat-icon matBadge="15"
-              matBadgeColor="warn"
-              (click)="toggleOverlay()">
-      shopping_cart
-    </mat-icon>
   </mat-toolbar>
   <app-cart-widget *ngIf="toggle"
                    (closeClicked)="toggleOverlay()">
-
   </app-cart-widget>
 </div>

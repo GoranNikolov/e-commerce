@@ -1,14 +1,30 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from "rxjs";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../store/app.state";
+import {ToggleNotificationService} from "../../services/toggle-notification.service";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
-  toggle: boolean = false
+export class HeaderComponent implements OnInit {
 
+  toggle: boolean = false
+  cartItemsCount$: Observable<number>;
+
+  constructor(private store: Store<AppState>,
+              private toggleNotificationService: ToggleNotificationService
+  ) {
+    this.cartItemsCount$ = this.store.select(state => state.cart.items.length);
+  }
   toggleOverlay() {
-    this.toggle = !this.toggle
+    this.toggleNotificationService.toggleOverlay();
+  }
+  ngOnInit() {
+    this.toggleNotificationService.overlayToggle$.subscribe(toggle => {
+      this.toggle = toggle;
+    });
   }
 }

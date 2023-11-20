@@ -9,9 +9,34 @@
             <mat-icon color="primary" (click)="close()">cancel</mat-icon>
       </span>
     </div>
-    <mat-divider></mat-divider>
-    <div class="content">
 
+    <div class="content">
+      <div *ngFor="let item of cartItems$ | async">
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ item.name }}</mat-card-title>
+            <mat-card-subtitle>{{ item.variant.name }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <img src="{{ item.images[0] | assetPreview:200:200 }}" alt="{{ item.images[0].name }} Image">
+            <div>
+              <span>Price: {{ item.variant.price }}</span>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button (click)="reduceQuantity(item)">-</button>
+            <span class="quantity">{{ item.qty }}</span>
+            <button mat-button (click)="increaseQuantity(item)">+</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="controls">
+        <button mat-raised-button color="primary"> Checkout</button>
+      </div>
     </div>
   </div>
 </div>

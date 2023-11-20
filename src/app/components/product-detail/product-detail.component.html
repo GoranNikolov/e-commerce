@@ -7,6 +7,7 @@
           <img src="{{ product.assets[0] | assetPreview:444:444 }}" alt="{{ product.name }} Image">
         </div>
         <div class="description-content">
+          <h2>{{ selectedVariant?.name }}</h2>
           <p>{{ product?.description }}</p>
           <mat-divider></mat-divider>
 
@@ -22,7 +23,10 @@
 
           <div *ngIf="selectedVariant">
             <h2>Price: ${{ selectedVariant?.price }}</h2>
-            <button mat-raised-button color="primary" (click)="addToCart(selectedVariant, qty)">Add to cart</button>
+            <button mat-raised-button color="primary" (click)="addToCart(product)">
+              Add to cart
+              <span *ngIf="totalQty !== 0">{{ totalQty }}</span>
+            </button>
           </div>
 
         </div>

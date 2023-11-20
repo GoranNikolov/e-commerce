@@ -1,32 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { catchError, Observable, tap } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { GraphqlService } from '../../services/graphql.service';
-import { GET_PRODUCT_DETAILS } from '../../common/graphql/graphql-queries';
-import {GraphQLResponse, Product} from "../../interface/product";
-import {ADD_TO_CART} from "../../common/graphql/graphql-mutation";
+// Import necessary modules...
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {catchError, Observable, Subject, Subscription, takeUntil, tap} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {GraphqlService} from '../../services/graphql.service';
+import {GET_PRODUCT_DETAILS} from '../../common/graphql/graphql-queries';
+import {GraphQLResponse, Product} from '../../interface/product';
+import {select, Store} from '@ngrx/store';
+import {addToCart} from '../../store/cart.actions';
+import {CartItem} from '../../interface/cart-item.interface';
+import {AppState} from '../../store/app.state';
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {ToggleNotificationService} from "../../services/toggle-notification.service";
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
   productName: string | null | undefined = null;
-  productDetails$: Observable<Product | undefined> | undefined; // Use optional chaining
-  selectedVariant: any; // Assuming your variants have any type, replace it with the actual type
-  qty = 1;
+  productDetails$: Observable<Product | undefined> | undefined;
+  selectedVariant: any;
+  qty: number = 0;
+  totalQty: number = 0;
+  private componentDestroyed$: Subject<void> = new Subject<void>();
+  private cartSubscription: Subscription | undefined;
+  productQuantities: Map<string, number> = new Map<string, number>();
+  product: Product | undefined; // Declare product here
 
 
-  constructor(private route: ActivatedRoute, private graphqlService: GraphqlService) {
-
+  constructor(
+    private route: ActivatedRoute,
+    private graphqlService: GraphqlService,
+    private store: Store<AppState>,
+    private snackBar: MatSnackBar,
+    private toggleNotificationService: ToggleNotificationService
+  ) {
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.productName = params.get('name');
-      // Perform additional actions based on the product name, such as fetching detailed data
     });
 
     this.productDetails$ = this.graphqlService
@@ -38,24 +53,67 @@ export class ProductDetailComponent implements OnInit {
         map(result => result?.product),
         catchError(error => {
           console.error('GraphQL Error:', error);
-          // Handle error as needed, e.g., show an error message to the user
-          throw error; // Rethrow the error to propagate it to subscribers
+          throw error;
         })
       );
+
     this.productDetails$.subscribe(product => {
       if (product && product.variants && product.variants.length > 0) {
         this.selectedVariant = product.variants[0];
+        this.product = product;
+      }
+    });
+
+    this.cartSubscription = this.store.pipe(
+      select(state => state),
+      takeUntil(this.componentDestroyed$)
+    ).subscribe((appState: AppState) => {
+      if (appState && appState.cart && appState.cart.items) {
+        const specificItem = appState.cart.items.find(item => item.id === this.product?.id);
+        this.totalQty = specificItem ? specificItem.qty || 0 : 0;
       }
     });
   }
-  //ADD TO STATE
-  addToCart(variant: any, qty: number) {
-    this.graphqlService.mutate<any>(ADD_TO_CART, {
-      variantId: variant.id,
-      qty,
-    }).subscribe(({addItemToOrder}) => {
 
+  openSnackBar() {
+    let snackBarRef = this.snackBar.open(
+      'Added to cart', 'View cart', {
+      duration: 5000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+    });
+
+    snackBarRef.onAction().subscribe(() => {
+      this.toggleOverlay();
     });
   }
 
+  toggleOverlay() {
+    this.toggleNotificationService.toggleOverlay();
+  };
+
+  addToCart(product: any) {
+    const newQty = (this.productQuantities.get(product.id) || 0) + 1;
+    const cartItem: CartItem = {
+      id: product.id,
+      name: product.name,
+      images: product.assets,
+      qty: newQty,
+      variant: this.selectedVariant
+    };
+
+    this.store.dispatch(addToCart({cartItem}));
+    this.openSnackBar()
+
+  }
+
+  ngOnDestroy(): void {
+    this.componentDestroyed$.next();
+    this.componentDestroyed$.complete();
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
+
+    this.productQuantities.clear();
+  }
 }

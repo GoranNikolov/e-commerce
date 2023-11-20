@@ -47,7 +47,6 @@ export class HomePageComponent implements OnInit {
         },
       })
       .pipe(
-        // tap(result => console.log('GraphQL Response:', result)),
         map((result: any) => {
           this.totalCount = result.products?.totalItems || 0;
           this.facetList = this.facetService.transformFacets(result.products?.items);
