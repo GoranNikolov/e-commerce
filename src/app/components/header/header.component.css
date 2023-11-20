@@ -1,0 +1,14 @@
+.header {
+  justify-content: start;
+  gap: 30px;
+  margin-bottom: 32px;
+  padding-left: 120px;
+  padding-right: 60px;
+}
+.spacer {
+  flex: 1 1 auto;
+}
+.nav-item {
+  margin: 0 12px;
+  cursor: pointer;
+}

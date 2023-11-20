@@ -1,0 +1,9 @@
+<div>
+  <div>
+    <app-side-filters [facetList]="facetList"></app-side-filters>
+  </div>
+  <div>
+    <h2>Results for "{{ searchTerm }}"</h2>
+    <app-list-items [items]="items$ | async"></app-list-items>
+  </div>
+</div>

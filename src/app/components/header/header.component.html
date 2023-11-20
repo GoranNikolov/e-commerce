@@ -1,0 +1,35 @@
+<div>
+  <mat-toolbar class="header" color="primary">
+    <!-- Logo -->
+    <div>
+      <img src="favicon.ico" alt="Logo" style="height: 40px; width: auto;" height="30" width="28">
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="nav-list">
+      <span class="nav-item" [routerLink]="['']">Home</span>
+      <span class="nav-item">Categories</span>
+      <span class="nav-item" routerLink="/cart">Checkout</span>
+    </div>
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <app-product-search-bar></app-product-search-bar>
+    </div>
+    <!-- Spacer -->
+    <span class="spacer"></span>
+
+    <div class="nav-list">
+      <span class="nav-item" routerLink="/sign-up">Sign Up</span>
+    </div>
+    <!-- Shopping Cart -->
+    <mat-icon matBadge="15"
+              matBadgeColor="warn"
+              (click)="toggleOverlay()">
+      shopping_cart
+    </mat-icon>
+  </mat-toolbar>
+  <app-cart-widget *ngIf="toggle"
+                   (closeClicked)="toggleOverlay()">
+
+  </app-cart-widget>
+</div>

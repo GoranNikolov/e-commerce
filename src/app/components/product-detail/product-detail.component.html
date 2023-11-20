@@ -1,0 +1,36 @@
+<div class="product-details">
+  <div>
+    <div *ngIf="productDetails$ | async as product; else loading">
+      <h1 class="title">{{ product?.name }}</h1>
+      <div class="content">
+        <div class="image-content">
+          <img src="{{ product.assets[0] | assetPreview:444:444 }}" alt="{{ product.name }} Image">
+        </div>
+        <div class="description-content">
+          <p>{{ product?.description }}</p>
+          <mat-divider></mat-divider>
+
+          <h2>Select option</h2>
+
+          <mat-form-field>
+            <mat-select [(value)]="selectedVariant">
+              <mat-option *ngFor="let variant of product?.variants" [value]="variant">
+                {{ variant?.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div *ngIf="selectedVariant">
+            <h2>Price: ${{ selectedVariant?.price }}</h2>
+            <button mat-raised-button color="primary" (click)="addToCart(selectedVariant, qty)">Add to cart</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+</div>

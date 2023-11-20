@@ -1,0 +1,15 @@
+<div class="side-filters">
+  <mat-expansion-panel *ngFor="let facet of facetList" [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ facet.name | uppercase }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngFor="let value of facet.values">
+      <mat-checkbox (change)="onCheckboxChange(value.id)"
+                    [checked]="selectedValues[value.id]">
+        {{ value.name }}
+      </mat-checkbox>
+    </div>
+  </mat-expansion-panel>
+</div>

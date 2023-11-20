@@ -1,0 +1,15 @@
+.content {
+  display: grid;
+  grid-template-columns: 300px auto;
+  margin: 0 30px;
+}
+mat-paginator {
+  margin-right: 20px;
+}
+
+.mat-mdc-progress-spinner {
+  position: relative;
+  width: 250px !important;
+  height: 580px !important;
+  left: 27%;
+}

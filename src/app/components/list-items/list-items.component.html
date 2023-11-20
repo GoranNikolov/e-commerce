@@ -1,0 +1,16 @@
+<div>
+  <div class="content-rows">
+    <div class="item" *ngFor="let item of items; let i = index"
+         [routerLink]="['product', item.slug]">
+      <img [src]="(item?.assets && item?.assets[0]) || item?.productAsset | assetPreview:300:300" alt="" />
+      <h2>{{ item?.name }}</h2>
+      <div class="item-description">
+        <p>{{ item?.description | truncate:10:true }}</p>
+      </div>
+
+      <div class="card-footer">
+        <p [routerLink]="['/product', item?.slug]">Show more</p>
+      </div>
+    </div>
+  </div>
+</div>

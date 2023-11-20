@@ -1,0 +1,31 @@
+<div class="content">
+  <div>
+    <app-side-filters [facetList]="facetList"></app-side-filters>
+  </div>
+  <div>
+    <mat-paginator
+      [length]="totalCount"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onPageChange($event)"
+      aria-label="Select page">
+    </mat-paginator>
+    <div *ngIf="items$ as items; else loading">
+      <app-list-items [items]="items$ | async">
+      </app-list-items>
+    </div>
+    <ng-template #loading>
+      <mat-spinner>
+      </mat-spinner>
+    </ng-template>
+    <mat-paginator
+      [length]="totalCount"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onPageChange($event)"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>
+
+

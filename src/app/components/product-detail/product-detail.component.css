@@ -1,0 +1,22 @@
+.product-details {
+  padding-right: 13rem;
+  padding-left: 13rem;
+  width: auto;
+  height: auto;
+  .title {
+    text-align: center;
+    margin-right: 58rem;
+  }
+  .content {
+    display: grid;
+    grid-template-columns: 444px minmax(auto, 500px);
+    grid-column-gap: 70px;
+    justify-content: center;
+  }
+}
+.mat-mdc-progress-spinner {
+  position: relative;
+  width: 250px !important;
+  height: 580px !important;
+  left: 40%;
+}

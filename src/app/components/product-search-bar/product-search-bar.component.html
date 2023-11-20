@@ -1,0 +1,10 @@
+<div class="input-group">
+  <input type="text"
+         [formControl]="searchTerm"
+         (keydown.enter)="doSearch()"
+         placeholder="Search..."
+         aria-label="Search input">
+  <button type="button" (click)="doSearch()">
+    <i class="fas fa-search"></i>
+  </button>
+</div>

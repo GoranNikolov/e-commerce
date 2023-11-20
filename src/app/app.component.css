@@ -1,0 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* This ensures the wrapper takes at least the full height of the viewport */
+}
+
+.content {
+  flex: 1; /* This makes the content take up the available space */
+}
+
+.footer {
+  flex-shrink: 0; /* This prevents the footer from shrinking when there's not enough content */
+}
+
