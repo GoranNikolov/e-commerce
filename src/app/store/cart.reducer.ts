@@ -36,7 +36,6 @@ export const cartReducer = createReducer(
     }
   }),
   on(updateCartItemQty, (state, {cartItemId, qty, variantName}) => {
-    debugger
     const updatedItems = state.items.map(item =>
       item.id === cartItemId && item.variant.name === variantName
         ? {...item, qty}

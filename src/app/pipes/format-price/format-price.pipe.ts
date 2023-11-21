@@ -9,7 +9,6 @@ export class FormatPricePipe implements PipeTransform {
     if (price === undefined) {
       return '';
     }
-
     const formattedPrice = (price / 100).toFixed(2);
     return `$${formattedPrice}`;
   }

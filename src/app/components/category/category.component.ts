@@ -31,10 +31,9 @@ export class CategoryComponent implements OnInit {
     this.route.params.pipe(
       tap(params => {
         this.searchTerm = params['name'];
-        console.log('Search Term:', this.searchTerm);
       }),
       switchMap(() => this.graphqlService.query(GET_COLLECTION, {slug: this.searchTerm}).pipe(
-        tap(result => console.log('GraphQL Collection Response:', result)),
+        // tap(result => console.log('GraphQL Collection Response:', result)),
         map((result: any) => {
           const idCollection = result.collection?.id || null;
           const nameCollection = result.collection?.name || null;
@@ -48,7 +47,6 @@ export class CategoryComponent implements OnInit {
       switchMap(({idCollection, nameCollection}) => {
         this.collectionId = idCollection;
         this.collectionName = nameCollection;
-        console.log('Collection ID:', this.collectionId);
         return this.graphqlService.query(SEARCH_PRODUCTS, {
           input: {
             collectionId: this.collectionId,
@@ -57,7 +55,7 @@ export class CategoryComponent implements OnInit {
             skip: 0
           },
         }).pipe(
-          tap(result => console.log('GraphQL Items Response:', result)),
+          // tap(result => console.log('GraphQL Items Response:', result)),
           map((result: any) => {
             const items = result.search?.items || [];
             const facetValues = result.search?.facetValues || [];
@@ -73,7 +71,6 @@ export class CategoryComponent implements OnInit {
     ).subscribe({
       next: ({items, facetList}) => {
         this.items = items;
-        console.log(facetList)
         this.facetList = facetList.filter(facet => facet.name !== 'category');
       },
       error: error => {
@@ -100,7 +97,7 @@ export class CategoryComponent implements OnInit {
         },
       })
       .pipe(
-        tap(result => console.log('GraphQL Response:', result)),
+        // tap(result => console.log('GraphQL Response:', result)),
         map((result: any) => result.search?.items || []),
         map((items: Product[]) =>
           items.filter(item => !(item.description === '' && item.productAsset === null))

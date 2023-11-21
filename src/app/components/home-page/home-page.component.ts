@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {GET_PRODUCTS, SEARCH_PRODUCTS} from "../../common/graphql/graphql-queries";
-import {Observable, tap} from "rxjs";
+import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {GraphqlService, Product} from "../../services/graphql.service";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
@@ -73,7 +73,7 @@ export class HomePageComponent implements OnInit {
         },
       })
       .pipe(
-        tap(result => console.log('GraphQL Response:', result)),
+        // tap(result => console.log('GraphQL Response:', result)),
         map((result: any) => result.search?.items || []),
         map((items: Product[]) =>
           items.filter(item => !(item.description === '' && item.productAsset === null))

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {catchError, Observable, Subject, Subscription, takeUntil, tap} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {catchError, Observable, Subject, Subscription, takeUntil} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 import {GraphqlService} from '../../services/graphql.service';
 import {GET_PRODUCT_DETAILS} from '../../common/graphql/graphql-queries';
 import {GraphQLResponse, Product} from '../../interface/product';
@@ -47,26 +47,28 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         slug: this.productName,
       })
       .pipe(
-        tap(result => console.log('GraphQL Response:', result)),
+        // tap(result => console.log('GraphQL Response:', result)),
         map(result => result?.product),
         catchError(error => {
           console.error('GraphQL Error:', error);
           throw error;
         })
       );
-
-    this.productDetails$.subscribe(product => {
-      if (product && product.variants && product.variants.length > 0) {
-        this.selectedVariant = product.variants[0];
-      }
-    });
-
-    this.cartSubscription = this.store.pipe(
-      select(state => state),
-      takeUntil(this.componentDestroyed$)
-    ).subscribe((appState: AppState) => {
-      this.updateTotalQty(appState)
-    });
+    this.productDetails$
+      .pipe(
+        switchMap(product => {
+          if (product && product.variants && product.variants.length > 0) {
+            this.selectedVariant = product.variants[0];
+          }
+          return this.store.pipe(
+            select(state => state),
+            takeUntil(this.componentDestroyed$)
+          );
+        })
+      )
+      .subscribe((appState: AppState) => {
+        this.updateTotalQty(appState);
+      });
   }
 
   openSnackBar() {
@@ -111,7 +113,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   private updateTotalQty(cartState: any) {
-    debugger
     if (cartState.cart && cartState.cart.items) {
       const specificItem = cartState.cart.items.find((item: any) => {
         return item.variant.name === this.selectedVariant.name;

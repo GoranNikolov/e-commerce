@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {GraphqlService} from "../../services/graphql.service";
-import {catchError, Observable, tap} from "rxjs";
+import {catchError, Observable} from "rxjs";
 import {GraphQLResponse, Product} from "../../interface/product";
 import {GET_CART_TOTALS} from "../../common/graphql/graphql-queries";
 import {map} from "rxjs/operators";
@@ -39,7 +39,7 @@ export class CartWidgetComponent implements OnInit {
     this.productDetails$ = this.graphqlService
       .query<GraphQLResponse>(GET_CART_TOTALS, {})
       .pipe(
-        tap(result => console.log('GraphQL Response:', result)),
+        // tap(result => console.log('GraphQL Response:', result)),
         map(result => result?.product),
         catchError(error => {
           console.error('GraphQL Error:', error);

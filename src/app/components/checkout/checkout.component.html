@@ -21,7 +21,7 @@
     </div>
     <div *ngIf="cartItems.length > 0" class="total-subtotal">
       <mat-divider></mat-divider>
-      <h2>Total: ${{ calculateTotalSubtotal(cartItems) }}</h2>
+      <h2>Total: ${{ calculateTotalSubtotal(cartItems) | formatPrice }}</h2>
     </div>
     <div *ngIf="cartItems.length === 0" class="empty-cart">
       <h1>Your cart is empty</h1>
