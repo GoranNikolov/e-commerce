@@ -7,7 +7,6 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {FacetService} from "../../services/facet.service";
 import {SharedServiceService} from "../../services/shared-service.service";
 
-
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',

@@ -1,9 +1,10 @@
-<div>
+<div class="search-results-wrapper">
   <div>
     <app-side-filters [facetList]="facetList"></app-side-filters>
   </div>
-  <div>
-    <h2>Results for "{{ searchTerm }}"</h2>
+  <div class="content">
+    <h1 style="margin-bottom: 5px">Results for "{{ searchTerm }}"</h1>
+    <mat-divider style="margin-bottom: 18px"></mat-divider>
     <app-list-items [items]="items$ | async"></app-list-items>
   </div>
 </div>

@@ -5,21 +5,19 @@
   justify-content: center;
   gap:30px
 }
-
 .social-icons {
   display: flex;
   gap: 30px;
 
 }
-
 .social-icons a {
   color: white;
   margin-left: 10px;
   text-decoration: none;
-  display: inline-block; /* Ensure icons are displayed properly */
+  display: inline-block;
 }
 
 .social-icons i {
   font-size: 24px;
-  display: inline-block; /* Ensure icons are displayed properly */
+  display: inline-block;
 }

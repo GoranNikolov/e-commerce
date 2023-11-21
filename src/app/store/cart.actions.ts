@@ -6,9 +6,10 @@ export const addToCart = createAction(
   props<{ cartItem: CartItem }>());
 export const updateCartItemQty = createAction(
   '[Cart] Update Cart Item Quantity',
-  props<{ cartItemId: string; qty: number }>()
+  props<{ cartItemId: string; qty: number; variantName: string }>()
 );
+
 export const removeCartItem = createAction(
   '[Cart] Remove Cart Item',
-  props<{ cartItemId: string }>()
+  props<{ cartItemId: string; variantName: string }>()
 );

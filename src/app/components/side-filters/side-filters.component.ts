@@ -4,7 +4,6 @@ import {SharedServiceService} from "../../services/shared-service.service";
 interface FacetValueFilter {
   and: string;
 }
-
 @Component({
   selector: 'app-side-filters',
   templateUrl: './side-filters.component.html',
@@ -20,10 +19,8 @@ export class SideFiltersComponent {
 
   onCheckboxChange(valueId: string) {
     if (this.selectedValues[valueId]) {
-      // Checkbox is unchecked, so remove it from the selected values
       delete this.selectedValues[valueId];
     } else {
-      // Checkbox is checked, so add it to the selected values
       this.selectedValues[valueId] = true;
     }
 

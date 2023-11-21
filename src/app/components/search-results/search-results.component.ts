@@ -24,7 +24,6 @@ export class SearchResultsComponent implements OnInit {
               private sharedService: SharedServiceService) {
   }
 
-  //FIX ME
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.searchTerm = params['search'];
@@ -41,11 +40,13 @@ export class SearchResultsComponent implements OnInit {
         .pipe(
           tap(result => console.log('GraphQL Response:', result)),
           map((result: any) => {
-            this.facetList = this.facetService.transformFacets(result.search?.facetValues);
+            this.facetList = this.facetService.transformFacetResults(result.search?.facetValues);
             return result.search?.items || [];
           }),
           map((items: Product[]) => items.filter
-          (item => !(item.description === "" && item.productAsset === null))) // Filter out items with empty description and null productAsset
+          (item => !(item.description === "" && item.productAsset === null)))
+          // Filter out items with empty description and null productAsset
+
         );
     });
     this.sharedService.getSearchObservable().subscribe(data => {

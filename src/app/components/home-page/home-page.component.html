@@ -10,14 +10,13 @@
       (page)="onPageChange($event)"
       aria-label="Select page">
     </mat-paginator>
-    <div *ngIf="items$ as items; else loading">
+    <div *ngIf="items$ as items;">
       <app-list-items [items]="items$ | async">
       </app-list-items>
     </div>
-    <ng-template #loading>
-      <mat-spinner>
-      </mat-spinner>
-    </ng-template>
+    <ng-container *ngIf="!(items$ | async)">
+      <mat-spinner></mat-spinner>
+    </ng-container>
     <mat-paginator
       [length]="totalCount"
       [pageSize]="pageSize"

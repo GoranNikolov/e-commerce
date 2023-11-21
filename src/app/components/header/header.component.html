@@ -7,9 +7,14 @@
 
     <!-- Navigation Links -->
     <div class="nav-list">
-      <span class="nav-item" [routerLink]="['']">Home</span>
-      <span class="nav-item">Categories</span>
-      <span class="nav-item" routerLink="/cart">Checkout</span>
+      <button mat-button [routerLink]="['']">Home</button>
+      <button mat-button [matMenuTriggerFor]="categoryMenu">Categories</button>
+      <mat-menu #categoryMenu="matMenu">
+        <button mat-menu-item *ngFor="let category of categories" [routerLink]="category.link">
+          {{ category.label }}
+        </button>
+      </mat-menu>
+      <button mat-button routerLink="/checkout">Checkout</button>
     </div>
     <!-- Search Bar -->
     <div class="search-bar">
@@ -25,7 +30,7 @@
     </mat-icon>
 
     <div class="nav-list">
-      <span class="nav-item" routerLink="/sign-up">Sign Up</span>
+      <button mat-button routerLink="/login">Sign in</button>
     </div>
   </mat-toolbar>
   <app-cart-widget *ngIf="toggle"

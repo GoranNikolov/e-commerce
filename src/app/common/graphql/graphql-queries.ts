@@ -1,5 +1,3 @@
-// graphql-queries.ts
-
 import { gql } from '@apollo/client';
 import {ASSET_FRAGMENT} from "./graphql-fragments";
 
@@ -52,7 +50,16 @@ export const GET_PRODUCT_DETAILS = gql`
   }
   ${ASSET_FRAGMENT}
 `;
-
+export const GET_COLLECTION = gql`
+query GetCollection($id: ID, $slug: String) {
+  collection(id: $id, slug: $slug) {
+    id
+    name
+    slug
+    description
+ }
+}
+`
 export const SEARCH_PRODUCTS = gql`
 query SearchProducts($input: SearchInput!) {
   search(input: $input) {

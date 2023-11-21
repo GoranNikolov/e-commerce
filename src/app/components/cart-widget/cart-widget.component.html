@@ -22,7 +22,7 @@
           <mat-card-content>
             <img src="{{ item.images[0] | assetPreview:200:200 }}" alt="{{ item.images[0].name }} Image">
             <div>
-              <span>Price: {{ item.variant.price }}</span>
+              <h2 style="margin-bottom:2px">Price: {{ item.variant.price | formatPrice }}</h2>
             </div>
           </mat-card-content>
           <mat-card-actions>
@@ -35,7 +35,7 @@
     </div>
     <div class="footer">
       <div class="controls">
-        <button mat-raised-button color="primary"> Checkout</button>
+        <button mat-raised-button color="primary" (click)="goToCheckout()"> Checkout</button>
       </div>
     </div>
   </div>

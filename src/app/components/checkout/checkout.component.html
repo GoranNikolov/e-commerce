@@ -1,0 +1,31 @@
+<div class="check-out-content">
+  <div>
+    <app-login></app-login>
+  </div>
+  <div class="cart-container" *ngIf="cartItems$ | async as cartItems;">
+    <div *ngFor="let item of cartItems" class="cart-item">
+      <mat-card>
+        <mat-card-content>
+          <img src="{{ item.images[0] | assetPreview:200:200 }}" alt="{{ item.images[0].name }} Image">
+          <div class="item-details">
+            <div>{{ item.name }}</div>
+            <div>Price: {{ item.variant.price | formatPrice }}</div>
+            <div>Subtotal: {{ calculateSubtotal(item) | formatPrice }}</div>
+            <div>Quantity: {{ item.qty }}</div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button color="warn" (click)="removeItem(item.id, item.variant.name)">Remove Item</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div *ngIf="cartItems.length > 0" class="total-subtotal">
+      <mat-divider></mat-divider>
+      <h2>Total: ${{ calculateTotalSubtotal(cartItems) }}</h2>
+    </div>
+    <div *ngIf="cartItems.length === 0" class="empty-cart">
+      <h1>Your cart is empty</h1>
+      <button mat-raised-button color="primary" (click)="goToHome()">Explore Products</button>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,6 @@
-// cart.reducer.ts
 import {createReducer, on} from '@ngrx/store';
 import {addToCart, removeCartItem, updateCartItemQty} from './cart.actions';
-import {CartItem} from '../interface/cart-item.interface'; // Update with the actual path
+import {CartItem} from '../interface/cart-item.interface';
 
 export interface CartState {
   items: CartItem[];
@@ -14,7 +13,9 @@ export const initialState: CartState = {
 export const cartReducer = createReducer(
   initialState,
   on(addToCart, (state, {cartItem}) => {
-    const existingItemIndex = state.items.findIndex(item => item.id === cartItem.id);
+    const existingItemIndex = state.items.findIndex(item =>
+      item.id === cartItem.id && item.variant.name === cartItem.variant.name
+    );
 
     if (existingItemIndex > -1) {
       // If the item already exists, update its quantity
@@ -34,14 +35,19 @@ export const cartReducer = createReducer(
       return {...state, items: [...state.items, cartItem]};
     }
   }),
-  on(updateCartItemQty, (state, {cartItemId, qty}) => {
+  on(updateCartItemQty, (state, {cartItemId, qty, variantName}) => {
+    debugger
     const updatedItems = state.items.map(item =>
-      item.id === cartItemId ? {...item, qty} : item
+      item.id === cartItemId && item.variant.name === variantName
+        ? {...item, qty}
+        : item
     );
     return {...state, items: updatedItems};
   }),
-  on(removeCartItem, (state, {cartItemId}) => ({
+  on(removeCartItem, (state, {cartItemId, variantName}) => ({
     ...state,
-    items: state.items.filter(item => item.id !== cartItemId),
+    items: state.items.filter(item =>
+      item.id !== cartItemId || item.variant.name !== variantName
+    ),
   }))
 );

@@ -39,4 +39,27 @@ export class FacetService {
 
     return transformedFacets;
   }
+  transformFacetResults(facetResults: any[]) {
+    const transformedFacets: { name: any; values: { name: any; count: any; id: any; }[]; }[] = [];
+
+    facetResults.forEach((facetResult) => {
+      const { count, facetValue } = facetResult;
+      const { name, facet } = facetValue;
+
+      const existingFacet = transformedFacets.find((transformedFacet) => transformedFacet.name === facet.name);
+
+      if (existingFacet) {
+        const existingValue = existingFacet.values.find((value) => value.name === name);
+
+        if (!existingValue) {
+          existingFacet.values.push({ name, count, id: facetValue.id });
+        }
+      } else {
+        const newFacet = { name: facet.name, values: [{ name, count, id: facetValue.id }] };
+        transformedFacets.push(newFacet);
+      }
+    });
+
+    return transformedFacets;
+  }
 }

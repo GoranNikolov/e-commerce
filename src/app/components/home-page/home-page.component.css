@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 300px auto;
   margin: 0 30px;
+  grid-column-gap: 50px;
 }
 mat-paginator {
   margin-right: 20px;

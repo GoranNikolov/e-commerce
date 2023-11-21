@@ -7,7 +7,7 @@ export interface CartItem {
     height: number;
     name: string;
     preview: string;
-    focalPoint: any; // You can replace 'any' with the actual type if needed
+    focalPoint: any;
   }>;
   qty?: number;
   variant: {
@@ -15,5 +15,4 @@ export interface CartItem {
       name: string;
       price: number;
     };
-  // ... other properties
 }

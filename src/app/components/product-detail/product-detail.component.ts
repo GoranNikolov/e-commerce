@@ -1,4 +1,3 @@
-// Import necessary modules...
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {catchError, Observable, Subject, Subscription, takeUntil, tap} from 'rxjs';
@@ -27,8 +26,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   private componentDestroyed$: Subject<void> = new Subject<void>();
   private cartSubscription: Subscription | undefined;
   productQuantities: Map<string, number> = new Map<string, number>();
-  product: Product | undefined; // Declare product here
-
+  product: Product | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -60,7 +58,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.productDetails$.subscribe(product => {
       if (product && product.variants && product.variants.length > 0) {
         this.selectedVariant = product.variants[0];
-        this.product = product;
       }
     });
 
@@ -68,20 +65,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       select(state => state),
       takeUntil(this.componentDestroyed$)
     ).subscribe((appState: AppState) => {
-      if (appState && appState.cart && appState.cart.items) {
-        const specificItem = appState.cart.items.find(item => item.id === this.product?.id);
-        this.totalQty = specificItem ? specificItem.qty || 0 : 0;
-      }
+      this.updateTotalQty(appState)
     });
   }
 
   openSnackBar() {
     let snackBarRef = this.snackBar.open(
       'Added to cart', 'View cart', {
-      duration: 5000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top',
-    });
+        duration: 5000,
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom',
+      });
 
     snackBarRef.onAction().subscribe(() => {
       this.toggleOverlay();
@@ -91,6 +85,16 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   toggleOverlay() {
     this.toggleNotificationService.toggleOverlay();
   };
+
+  onVariantSelectionChange() {
+    this.cartSubscription?.unsubscribe(); // Unsubscribe to avoid multiple subscriptions
+    this.cartSubscription = this.store.pipe(
+      select(state => state),
+      takeUntil(this.componentDestroyed$)
+    ).subscribe((appState: AppState) => {
+      this.updateTotalQty(appState)
+    });
+  }
 
   addToCart(product: any) {
     const newQty = (this.productQuantities.get(product.id) || 0) + 1;
@@ -103,8 +107,17 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     };
 
     this.store.dispatch(addToCart({cartItem}));
-    this.openSnackBar()
+    this.openSnackBar();
+  }
 
+  private updateTotalQty(cartState: any) {
+    debugger
+    if (cartState.cart && cartState.cart.items) {
+      const specificItem = cartState.cart.items.find((item: any) => {
+        return item.variant.name === this.selectedVariant.name;
+      });
+      this.totalQty = specificItem ? specificItem.qty || 0 : 0;
+    }
   }
 
   ngOnDestroy(): void {

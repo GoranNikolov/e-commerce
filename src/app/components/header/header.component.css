@@ -8,7 +8,9 @@
 .spacer {
   flex: 1 1 auto;
 }
-.nav-item {
+.nav-list {
   margin: 0 12px;
-  cursor: pointer;
+  & button {
+    font-size: 18px;
+  }
 }
