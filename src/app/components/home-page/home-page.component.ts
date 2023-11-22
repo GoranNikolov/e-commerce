@@ -1,11 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {GET_PRODUCTS, SEARCH_PRODUCTS} from "../../common/graphql/graphql-queries";
-import {Observable} from "rxjs";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {map} from "rxjs/operators";
+import {Observable} from "rxjs";
 import {GraphqlService, Product} from "../../services/graphql.service";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {FacetService} from "../../services/facet.service";
 import {SharedServiceService} from "../../services/shared-service.service";
+import {GET_PRODUCTS, SEARCH_PRODUCTS} from "../../common/graphql/graphql-queries";
 
 @Component({
   selector: 'app-home-page',

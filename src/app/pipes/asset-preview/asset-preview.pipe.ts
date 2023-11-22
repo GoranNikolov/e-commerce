@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import {AssetPreviewError} from "./assetPreviewError";
+import {Pipe, PipeTransform} from '@angular/core';
+import {AssetPreviewError} from "./asset-preview-error";
 
 @Pipe({
   name: 'assetPreview'

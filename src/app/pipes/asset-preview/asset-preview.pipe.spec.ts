@@ -1,5 +1,5 @@
-import { AssetPreviewPipe } from './asset-preview.pipe';
-import { AssetPreviewError } from './assetPreviewError';
+import {AssetPreviewPipe} from './asset-preview.pipe';
+import {AssetPreviewError} from './asset-preview-error';
 
 describe('AssetPreviewPipe', () => {
   let pipe: AssetPreviewPipe;

@@ -1,6 +1,6 @@
 <div class="content">
   <div>
-    <app-side-filters [facetList]="facetList"></app-side-filters>
+    <app-side-filter [facetList]="facetList"></app-side-filter>
   </div>
   <div>
     <mat-paginator
@@ -11,8 +11,8 @@
       aria-label="Select page">
     </mat-paginator>
     <div *ngIf="items$ as items;">
-      <app-list-items [items]="items$ | async">
-      </app-list-items>
+      <app-product-list-item [items]="items$ | async">
+      </app-product-list-item>
     </div>
     <ng-container *ngIf="!(items$ | async)">
       <mat-spinner></mat-spinner>

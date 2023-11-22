@@ -1,7 +1,4 @@
 <div class="check-out-content">
-  <div>
-    <app-login></app-login>
-  </div>
   <div class="cart-container" *ngIf="cartItems$ | async as cartItems;">
     <div *ngFor="let item of cartItems" class="cart-item">
       <mat-card>

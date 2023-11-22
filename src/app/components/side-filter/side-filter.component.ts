@@ -5,11 +5,11 @@ interface FacetValueFilter {
   and: string;
 }
 @Component({
-  selector: 'app-side-filters',
-  templateUrl: './side-filters.component.html',
-  styleUrls: ['./side-filters.component.css']
+  selector: 'app-side-filter',
+  templateUrl: './side-filter.component.html',
+  styleUrls: ['./side-filter.component.css']
 })
-export class SideFiltersComponent {
+export class SideFilterComponent {
   @Input() facetList: { name: string, values: { name: any; id: any; }[] }[] = [];
 
   selectedValues: { [key: string]: boolean } = {};

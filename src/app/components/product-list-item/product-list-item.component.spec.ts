@@ -1,20 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ListItemsComponent } from './list-items.component';
+import {ProductListItemComponent} from './product-list-item.component';
 import {RouterTestingModule} from "@angular/router/testing";
 import {By} from "@angular/platform-browser";
 
 describe('ListItemsComponent', () => {
-  let component: ListItemsComponent;
-  let fixture: ComponentFixture<ListItemsComponent>;
+  let component: ProductListItemComponent;
+  let fixture: ComponentFixture<ProductListItemComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ListItemsComponent],
+      declarations: [ProductListItemComponent],
       imports: [RouterTestingModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ListItemsComponent);
+    fixture = TestBed.createComponent(ProductListItemComponent);
     component = fixture.componentInstance;
   });
 

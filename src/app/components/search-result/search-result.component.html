@@ -1,10 +1,10 @@
 <div class="search-results-wrapper">
   <div>
-    <app-side-filters [facetList]="facetList"></app-side-filters>
+    <app-side-filter [facetList]="facetList"></app-side-filter>
   </div>
   <div class="content">
     <h1 style="margin-bottom: 5px">Results for "{{ searchTerm }}"</h1>
     <mat-divider style="margin-bottom: 18px"></mat-divider>
-    <app-list-items [items]="items$ | async"></app-list-items>
+    <app-product-list-item [items]="items$ | async"></app-product-list-item>
   </div>
 </div>

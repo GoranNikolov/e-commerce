@@ -8,11 +8,11 @@ import {FacetService} from "../../services/facet.service";
 import {SharedServiceService} from "../../services/shared-service.service";
 
 @Component({
-  selector: 'app-search-results',
-  templateUrl: './search-results.component.html',
-  styleUrls: ['./search-results.component.css']
+  selector: 'app-search-result',
+  templateUrl: './search-result.component.html',
+  styleUrls: ['./search-result.component.css']
 })
-export class SearchResultsComponent implements OnInit {
+export class SearchResultComponent implements OnInit {
   searchTerm: string | undefined;
   items$: Observable<Product[]> | any;
   facetList: { name: string, values: { name: any; id: any; }[] }[] = [];

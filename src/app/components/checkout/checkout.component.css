@@ -1,13 +1,14 @@
 .check-out-content{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 800px;
   margin: 0 30px;
   grid-column-gap: 50px;
+  justify-content: center;
 }
 .cart-container{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-row-gap: 80px;
+  grid-row-gap: 20px;
   grid-column-gap: 40px;
   margin-bottom: 60px;
 }
