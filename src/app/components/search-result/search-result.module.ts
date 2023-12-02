@@ -4,6 +4,7 @@ import {SideFilterModule} from "../side-filter/side-filter.module";
 import {SearchResultComponent} from "./search-result.component";
 import {MatListModule} from "@angular/material/list";
 import {AsyncPipe} from "@angular/common";
+import {SearchResultRoutingModule} from "./search-result-routing.module";
 
 @NgModule({
   declarations: [SearchResultComponent],
@@ -11,7 +12,8 @@ import {AsyncPipe} from "@angular/common";
     ProductListItemModule,
     SideFilterModule,
     MatListModule,
-    AsyncPipe
+    AsyncPipe,
+    SearchResultRoutingModule
   ],
   exports: [SearchResultComponent],
 })

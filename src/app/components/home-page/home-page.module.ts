@@ -5,6 +5,7 @@ import {AsyncPipe, NgIf} from "@angular/common";
 import {ProductListItemModule} from "../product-list-item/product-list-item.module";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {SideFilterModule} from "../side-filter/side-filter.module";
+import {HomePageRoutingModule} from "./home-page-routing.module";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {SideFilterModule} from "../side-filter/side-filter.module";
     ProductListItemModule,
     MatProgressSpinnerModule,
     NgIf,
-    SideFilterModule
+    SideFilterModule,
+    HomePageRoutingModule,
   ],
   exports: [HomePageComponent]
 })

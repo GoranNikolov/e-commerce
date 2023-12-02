@@ -4,6 +4,7 @@ import {ProductListItemModule} from "../product-list-item/product-list-item.modu
 import {SideFilterModule} from "../side-filter/side-filter.module";
 import {CategoryComponent} from "./category.component";
 import {MatDividerModule} from "@angular/material/divider";
+import {CategoryRoutingModule} from "./category-routing.module";
 
 @NgModule({
   declarations: [CategoryComponent],
@@ -13,6 +14,7 @@ import {MatDividerModule} from "@angular/material/divider";
     ProductListItemModule,
     SideFilterModule,
     MatDividerModule,
+    CategoryRoutingModule
   ],
   exports: [CategoryComponent]
 })

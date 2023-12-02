@@ -6,6 +6,7 @@ import {FormatPricePipeModule} from "../../pipes/format-price/format-price.pipe.
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatListModule} from "@angular/material/list";
+import {CheckoutRoutingModule} from "./checkout-routing.module";
 
 @NgModule({
   declarations: [CheckoutComponent],
@@ -16,6 +17,7 @@ import {MatListModule} from "@angular/material/list";
     MatCardModule,
     MatButtonModule,
     MatListModule,
+    CheckoutRoutingModule
   ],
   exports: [CheckoutComponent]
 

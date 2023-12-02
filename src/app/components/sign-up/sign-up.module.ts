@@ -5,6 +5,7 @@ import {MatCardModule} from "@angular/material/card";
 import {FormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import {SignUpRoutingModule} from "./sign-up-routing.module";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {MatButtonModule} from "@angular/material/button";
     MatCardModule,
     FormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    SignUpRoutingModule
   ],
   exports: [SignUpComponent]
 })

@@ -22,9 +22,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     FormatPricePipeModule,
     MatButtonModule,
     MatProgressSpinnerModule,
-    BrowserAnimationsModule, // Make sure to import BrowserAnimationsModule
-    MatSnackBarModule, // Import MatSnackBarModule
-
+    BrowserAnimationsModule,
+    MatSnackBarModule,
   ],
   exports: [ProductDetailComponent]
 })

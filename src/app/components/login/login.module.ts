@@ -8,6 +8,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatButtonModule} from "@angular/material/button";
 import {MatListModule} from "@angular/material/list";
 import {RouterLink} from "@angular/router";
+import {LoginRoutingModule} from "./login-routing.module";
 
 @NgModule({
   declarations: [LoginComponent],
@@ -19,7 +20,8 @@ import {RouterLink} from "@angular/router";
     MatCheckboxModule,
     MatButtonModule,
     MatListModule,
-    RouterLink
+    RouterLink,
+    LoginRoutingModule
   ],
   exports: [LoginComponent]
 })
